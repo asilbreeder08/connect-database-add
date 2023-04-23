@@ -1,0 +1,41 @@
+https://www.youtube.com/watch?v=dJRFTB4uo-M
+//open module
+
+Imports MySql.Data.MySqlClient
+Module Module1
+    Public con As New MySqlConnection
+    Public cmd As New MySqlCommand
+    Sub openCon()
+        con.ConnectionString = "server=localhost;username=root;password=;database=sorting"
+        con.Open()
+    End Sub
+End Module
+
+//call function
+Public Class Form1
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        openCon()
+        MsgBox("Connected")
+        con.Close()
+    End Sub
+End Class
+
+//add
+
+Private Sub btnsave_Click(sender As Object, e As EventArgs) Handles btnsave.Click
+        openCon()
+        Try
+            cmd.Connection = con
+            cmd.CommandText = "INSERT INTO student (`student_fname`, `student_lname`, `student_mname`)
+                                VALUES('" & fname.Text & "', '" & lname.Text & "', '" & mname.Text & "')"
+            cmd.ExecuteNonQuery()
+            MsgBox("Successfully Added")
+            con.Close()
+            fname.Clear()
+            lname.Clear()
+            mname.Clear()
+
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+    End Sub
