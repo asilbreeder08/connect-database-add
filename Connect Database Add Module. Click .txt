@@ -40,3 +40,18 @@ Private Sub btnsave_Click(sender As Object, e As EventArgs) Handles btnsave.Clic
             MsgBox(ex.ToString)
         End Try
     End Sub
+    
+    
+ //RELOAD DATA TO DATA GRIDVIEW
+ Private Sub btnreload_Click(sender As Object, e As EventArgs) Handles btnreload.Click
+        openCon()
+        Try
+            Dim adapter As New MySqlDataAdapter("SELECT * FROM employee1 ORDER BY firstname, lastname ASC", con)
+            Dim table As New DataTable()
+            adapter.Fill(table)
+            dtvlist.DataSource = table
+            con.Close()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+    End Sub
